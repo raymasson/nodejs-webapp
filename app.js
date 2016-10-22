@@ -12,7 +12,7 @@ app.set('views', './src/views');
 //var handlebars = require('express-handlebars');
 //app.engine('.hbs', handlebars({extname: '.hbs'}));
 //app.set('view engine', '.hbs');
-//ydfdhbffd
+
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
