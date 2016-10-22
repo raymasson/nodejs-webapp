@@ -4,6 +4,17 @@ var app = express();
 
 var port = process.env.port || 5000;
 
+var nav = [{
+    Link: '/Books',
+    Text: 'Book'
+}, {
+    Link: '/Authors',
+    Text: 'Author'
+}];
+
+var bookRouter = require('./src/routes/bookRoutes')(nav);
+var authorRouter = require('./src/routes/authorRoutes');
+
 app.use(express.static('public'));
 //app.use(express.static('src/views'));
 app.set('views', './src/views');
@@ -15,14 +26,26 @@ app.set('views', './src/views');
 
 app.set('view engine', 'ejs');
 
+app.use('/Books', bookRouter);
+app.use('/Authors', authorRouter);
+
 app.get('/', function(req, res) {
     //res.send('Hello World');
     //res.render('index', {list: ['a','b']});
-    res.render('index', {title: 'Hello from render', list: ['a','b']});
+    res.render('index', {
+        title: 'Hello from render',
+        nav: [{
+            Link: '/Books',
+            Text: 'Books'
+        }, {
+            Link: '/Authors',
+            Text: 'Authors'
+        }]
+    });
 });
-app.get('/books', function(req, res) {
+/*app.get('/books', function(req, res) {
     res.send('Hello Books');
-});
+});*/
 app.listen(port, function(err) {
     console.log('running server on port ' + port);
 });
