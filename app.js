@@ -2,6 +2,21 @@ var express = require('express');
 
 var app = express();
 
+var sql = require('mssql');
+var config = {
+    user: 'login',
+    password: 'password',
+    server: 'localhost\\SQLEXPRESS',
+    database: 'NodeJsWebApp',
+    /*options: {
+        encrypt: true
+    }*/
+};
+
+sql.connect(config, function(err) {
+    console.log(err);
+});
+
 var port = process.env.port || 5000;
 
 var nav = [{
