@@ -1,21 +1,27 @@
 var express = require('express');
 
+var bodyParser = require('body-parser');
+
+var cookieParser = require('cookie-parser');
+
+var session = require('express-session');
+
 var app = express();
 
-var sql = require('mssql');
+/*var sql = require('mssql');
 var config = {
     user: 'login',
     password: 'password',
     server: 'localhost\\SQLEXPRESS',
     database: 'NodeJsWebApp',
-    /*options: {
-        encrypt: true
-    }*/
+    //options: {
+        //encrypt: true
+    //}
 };
 
 sql.connect(config, function(err) {
     console.log(err);
-});
+});*/
 
 var port = process.env.port || 5000;
 
@@ -29,10 +35,19 @@ var nav = [{
 
 var bookRouter = require('./src/routes/bookRoutes')(nav);
 var adminRouter = require('./src/routes/adminRoutes')(nav);
+var authRouter = require('./src/routes/authRoutes')(nav);
 var authorRouter = require('./src/routes/authorRoutes');
 
 app.use(express.static('public'));
-//app.use(express.static('src/views'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+app.use(cookieParser());
+app.use(session({
+    secret: 'nodejswebapp'
+}));
+
+require('./src/config/passport')(app);
+
 app.set('views', './src/views');
 //app.set('view engine', 'jade');
 
@@ -44,6 +59,7 @@ app.set('view engine', 'ejs');
 
 app.use('/Books', bookRouter);
 app.use('/Admin', adminRouter);
+app.use('/Auth', authRouter);
 app.use('/Authors', authorRouter);
 
 app.get('/', function(req, res) {
