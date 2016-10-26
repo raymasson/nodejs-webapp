@@ -9,6 +9,7 @@ var router = function(nav) {
         title: 'War and Peace',
         genre: 'Historical Fiction',
         author: 'Lev NokiLayevich Tolstoy',
+        bookId: 656,
         read: false
     }, {
         title: 'Les misérables',
