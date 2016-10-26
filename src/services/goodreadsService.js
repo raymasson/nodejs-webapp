@@ -1,6 +1,6 @@
-var goodreadsService = function(){
-    var getBookById = function(id, cb){
-        cb(null, {description: "Our description"});
+var goodreadsService = function () {
+    var getBookById = function (id, cb) {
+        cb(null, { description: "Our description" });
     };
 };
 
