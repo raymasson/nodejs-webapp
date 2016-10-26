@@ -5,3 +5,7 @@ var goodreadsService = function () {
 };
 
 module.exports = goodreadsService;
+
+console.log("hello");
+
+
